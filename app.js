@@ -4,6 +4,8 @@ const colors = document.getElementsByClassName("jsColor");
 const range = document.getElementById("jsRange");
 const mode = document.getElementById("jsMode");
 const save = document.getElementById("jsSave");
+const clear = document.getElementById("jsClear");
+
 
 const INITIAL_COLOR = "white"; 
 const CANVAS_SIZE = 700;
@@ -32,7 +34,6 @@ function onMouseMove(event){
         ctx.beginPath()
         ctx.moveTo(x, y);
     } else{
-        console.log("creasting Line in ", x, y);
         ctx.lineTo(x, y)
         ctx.stroke();
     }
@@ -44,10 +45,9 @@ function onMouseUp(event){
 
 function handleColorClick(event){
     const color = event.target.style.backgroundColor;
-    console.log(color);
     ctx.strokeStyle = color;
-    ctx.fillStyle = color;
     if(filling === false){
+        ctx.fillStyle = color;
         ctx.fillRect(0 ,0 , canvas.width ,canvas.height)
     }
 
@@ -91,6 +91,11 @@ function saveFuntion(){
     link.click();
 }
 
+function clearCanvas(){
+
+    ctx.fillRect(0 ,0 , canvas.width ,canvas.height);
+}
+
 
 if(colors){
     Array.from(colors).forEach(color=>
@@ -107,4 +112,8 @@ if(mode){
 
 if(save){
     save.addEventListener("click", saveFuntion);
+}
+
+if(clear){
+    clear.addEventListener("click", clearCanvas)
 }
